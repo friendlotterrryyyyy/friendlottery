@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Friend lottery simulator</title>
+    <link rel="stylesheet" href="pico.jade.min.css" />
+    <style>
+      .error-color {
+        color: crimson;
+      }
+      [id^="results-"] {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="container">
+      <h1 style="text-align: center">Friend lottery simulator</h1>
+    </header>
+
+    <main class="container">
+      <form id="lottery" method="post">
+        <div>
+          <fieldset>
+            <legend><strong>Options</strong></legend>
+            <label for="user_playing">
+              <input
+                type="checkbox"
+                id="user_playing"
+                name="user_playing"
+                role="switch"
+              />
+              Play a ticket
+            </label>
+            <label for="download_csv_option">
+              <input
+                type="checkbox"
+                id="download_csv_option"
+                name="download_csv_option"
+                role="switch"
+              />
+              Download CSV afterwards
+            </label>
+          </fieldset>
+        </div>
+        <div id="ticket_input" style="display: none;">
+          <label for="ticket">Choose your numbers (each between 1 and 28, not repeating)</label>
+          <div class="grid">
+            <input type="number" name="ticket-segment-0" id="ticket-segment-0" min="1" max="28"/>
+            <input type="number" name="ticket-segment-1" id="ticket-segment-1" min="1" max="28"/>
+            <input type="number" name="ticket-segment-2" id="ticket-segment-2" min="1" max="28"/>
+            <input type="number" name="ticket-segment-3" id="ticket-segment-3" min="1" max="28"/>
+            <input type="number" name="ticket-segment-4" id="ticket-segment-4" min="1" max="28"/>
+            <input type="number" name="ticket-segment-5" id="ticket-segment-5" min="1" max="28"/>
+            <input type="number" name="ticket-segment-6" id="ticket-segment-6" min="1" max="28"/>
+          </div>
+          <h3 id="error_ticket_number_required" class="error-color" style="display: none;">All the numbers are required</h3>
+          <h3 id="error_ticket_number_repeated" class="error-color" style="display: none;">Numbers can't be repeated</h3>
+        </div>
+        <div>
+          <label for="total_participants"
+            >Choose the amount of random generated tickets</label
+          >
+          <input
+            type="number"
+            name="total_participants"
+            id="total_participants"
+            value="0"
+          />
+        </div>
+        <h3 id="error_players_amount" class="error-color" style="display: none;">Lottery can't be done without players</h3>
+
+        <br />
+
+        <button type="submit" class="outline">Play</button>
+      </form>
+
+      <div id="results" style="display: none;">
+        <h3>Results</h3>
+        <hr>
+        <div>
+          <ul>
+            <li>Blue winning numbers: <span id="results-blueWinningNumbers"></span></li>
+            <li>Yellow winning numbers: <span id="results-yellowWinningNumbers"></span></li>
+            <li>Total participants: <span id="results-totalCombinationsLength"></span></li>
+            <li>
+              Total money spent on tickets (2€ each):
+              <span id="results-totalGrossIncome"></span>
+            </li>
+            <li>The "Friend" pays totally to winners in rewards: <span id="results-totalFriendPayments"></span></li>
+            <li>The "Friend" makes: <span id="results-totalFriendEarnings"></span></li>
+          </ul>
+        </div>
+        <button type="button" class="outline secondary" style="width: 100%" id="play-again-btn">Play again</button>
+      </div>
+    </main>
+
+    <script type="module" src="/main.ts"></script>
+  </body>
+</html>
